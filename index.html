@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Little Ethiopia | Authentic Ethiopian Cuisine in Cape Town</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FEDD00', // Gold
+                        secondary: '#009A44', // Dark Green
+                        accent: '#EF3340' // Dark Red/Maroon
+                    },
+                    borderRadius: {
+                        'none': '0px',
+                        'sm': '4px',
+                        DEFAULT: '8px',
+                        'md': '12px',
+                        'lg': '16px',
+                        'xl': '20px',
+                        '2xl': '24px',
+                        '3xl': '32px',
+                        'full': '9999px',
+                        'button': '8px'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Yeseva+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; } /* Default RemixIcon, can be overridden */
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .font-display {
+            font-family: 'Yeseva One', cursive;
+        }
+        
+        .hero-section {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('Images/hero.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .pattern-divider {
+            height: 24px;
+            background-image: url('https://readdy.ai/api/search-image?query=Seamless%2520horizontal%2520Ethiopian%2520pattern%2520geometric%2520colors%2520gold%2520teal%2520maroon&width=1920&height=100&seq=2&orientation=landscape');
+            background-size: contain;
+            background-repeat: repeat-x;
+        }
+        
+        .reservation-section {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('https://readdy.ai/api/search-image?query=Subtle%2520Ethiopian%2520textile%2520pattern%2520background%2520light%2520beige%2520delicate%2520geometric%2520shapes&width=1920&height=1080&seq=3&orientation=landscape');
+            background-size: cover;
+        }
+        
+        .custom-input {
+            @apply border-none bg-white/80 backdrop-blur-sm rounded px-4 py-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/50;
+        }
+        
+        .custom-select {
+            @apply appearance-none border-none bg-white/80 backdrop-blur-sm rounded px-4 py-3 pr-8 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/50;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23b1852a'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.5rem center;
+            background-size: 1.5em 1.5em;
+        }
+        
+        .custom-checkbox {
+            @apply appearance-none w-5 h-5 border-2 border-primary rounded-sm bg-white checked:bg-primary checked:border-primary focus:outline-none focus:ring-2 focus:ring-primary/50 transition-colors;
+        }
+        
+        .custom-checkbox:checked {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M5 13l4 4L19 7'%3E%3C/path%3E%3C/svg%3E");
+            background-size: 100% 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        
+        .menu-item:hover .menu-item-overlay {
+            opacity: 1;
+        }
+        
+        .testimonial-slide {
+            display: none;
+        }
+        
+        .testimonial-slide.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color:#FEDD00; 
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+        
+        .sticky-nav {
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800">
+    <header class="sticky-nav fixed w-full top-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+            <a href="#home" class="text-3xl font-['Pacifico'] text-white">Little Ethiopia</a>
+            
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="#home" class="nav-link text-white font-medium hover:text-primary transition-colors active">Home</a>
+                <a href="#about" class="nav-link text-white font-medium hover:text-primary transition-colors">About Us</a>
+                <a href="#menu" class="nav-link text-white font-medium hover:text-primary transition-colors">Our Menu</a>
+                <a href="#reservation" class="nav-link text-white font-medium hover:text-primary transition-colors">Reservations</a>
+                <a href="#contact" class="nav-link text-white font-medium hover:text-primary transition-colors">Contact</a>
+                <a href="#reservation" class="ml-4 bg-primary hover:bg-primary/90 text-gray-800 px-6 py-2 !rounded-button whitespace-nowrap transition-colors">Book a Table</a>
+            </nav>
+            
+            <button class="md:hidden w-10 h-10 flex items-center justify-center text-white" id="mobile-menu-button">
+                <i class="ri-menu-line ri-2x"></i>
+            </button>
+        </div>
+        
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg absolute w-full">
+            <div class="container mx-auto px-4 py-4 flex flex-col space-y-4">
+                <a href="#home" class="text-gray-800 font-medium hover:text-primary transition-colors">Home</a>
+                <a href="#about" class="text-gray-800 font-medium hover:text-primary transition-colors">About Us</a>
+                <a href="#menu" class="text-gray-800 font-medium hover:text-primary transition-colors">Our Menu</a>
+                <a href="#reservation" class="text-gray-800 font-medium hover:text-primary transition-colors">Reservations</a>
+                <a href="#contact" class="text-gray-800 font-medium hover:text-primary transition-colors">Contact</a>
+                <a href="#reservation" class="bg-primary hover:bg-primary/90 text-white px-6 py-2 !rounded-button whitespace-nowrap text-center transition-colors">Book a Table</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="home" class="hero-section min-h-screen flex items-center">
+        <div class="container mx-auto px-4 py-20 w-full">
+            <div class="max-w-2xl">
+                <h1 class="text-5xl md:text-6xl font-display text-white leading-tight mb-6">Authentic Ethiopian Cuisine in Cape Town</h1>
+                <p class="text-xl text-white/90 mb-8">Consistently rated as the best Ethiopian food in Cape Town. Discover traditional flavors, freshly prepared with ancient recipes. Find out why our customers keep coming back!</p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#menu" class="bg-primary hover:bg-primary/90 text-gray-800 px-8 py-3 !rounded-button whitespace-nowrap transition-colors">View Our Menu</a>
+                    <a href="#reservation" class="bg-white hover:bg-white/90 text-gray-800 px-8 py-3 !rounded-button whitespace-nowrap transition-colors">Book a Table</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="w-full md:w-1/2">
+                    <img src="Images/placeholder-1.jpg" alt="Yeshi Mekonnen, Owner of Little Ethiopia" class="w-full h-auto rounded-lg shadow-xl object-cover object-top">
+                </div>
+                <div class="w-full md:w-1/2">
+                    <h2 class="text-3xl font-display text-secondary mb-6">About Little Ethiopia</h2>
+                    <div class="w-20 h-1 bg-primary mb-6"></div>
+                    <p class="text-gray-700 mb-6">“My name is Yeshi Mekonnen. I’m an Ethiopian native, who opened Little Ethiopia’s doors in February 2011. I am very happy to do this business because of all the many wonderful people I get to meet.”</p>
+                    <p class="text-gray-700 mb-6">At Little Ethiopia, we are passionate about sharing the rich culinary heritage of Ethiopia. Our food is made from scratch, using the freshest ingredients and time-honored recipes passed down through generations. We invite you to embark on a flavorful journey and experience the warmth of Ethiopian hospitality.</p>
+                    <p class="text-gray-700 mb-8">Join us and find out why our customers, Mail & Guardian, TripAdvisor, and EatOut consistently rate us as the best Ethiopian food in Cape Town!</p>
+                    <div class="flex items-center space-x-4">
+                        <a href="YOUR_FACEBOOK_LINK_HERE" target="_blank" class="text-secondary hover:text-primary transition-colors"><i class="ri-facebook-circle-fill ri-2x"></i></a>
+                        <a href="YOUR_TRIPADVISOR_LINK_HERE" target="_blank" class="text-secondary hover:text-primary transition-colors"><i class="ri-restaurant-fill ri-2x"></i></a>
+                    </div>
+                    <a href="#reservation" class="bg-primary hover:bg-primary/90 text-gray-800 px-8 py-3 !rounded-button whitespace-nowrap inline-block transition-colors mt-8">Book Your Experience</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="pattern-divider w-full"></div>
+
+    <section id="menu" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-display text-secondary mb-6">Our Signature Dishes</h2>
+                <div class="w-20 h-1 bg-primary mx-auto mb-6"></div>
+                <p class="text-gray-700 max-w-2xl mx-auto">We make our food from scratch, using the freshest ingredients with the best, ancient recipes. Injera, shiro, tibs, doro wot & vegetarian dishes; you’ll find them all. Delicious & affordable. All dishes are served with traditional, freshly prepared injera.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg overflow-hidden shadow-lg transition-transform hover:scale-[1.02] menu-item">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="Images/doro-wot.jpg" alt="Doro Wot - Ethiopian Chicken Stew" class="w-full h-full object-cover object-top">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 transition-opacity flex items-center justify-center menu-item-overlay">
+                            <span class="text-white font-medium">View Details</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-3">
+                            <h3 class="text-xl font-display text-accent">Doro Wot</h3>
+                            <span class="text-primary font-semibold">Check In-Store</span>
+                        </div>
+                        <p class="text-gray-600 text-sm">Spicy chicken stew with onions, berbere (Ethiopian chili paste), kibe (Ethiopian spiced butter) and garlic. *Kindly check for availability.*</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg overflow-hidden shadow-lg transition-transform hover:scale-[1.02] menu-item">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="Images/key-wot.jpg" alt="Key Wot - Ethiopian Beef Stew" class="w-full h-full object-cover object-top">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 transition-opacity flex items-center justify-center menu-item-overlay">
+                            <span class="text-white font-medium">View Details</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-3">
+                            <h3 class="text-xl font-display text-accent">Key Wot</h3>
+                            <span class="text-primary font-semibold">Check In-Store</span>
+                        </div>
+                        <p class="text-gray-600 text-sm">Lean beef stew with onions, berbere (Ethiopian chili powder), kibe (Ethiopian spiced butter) and garlic. *Please check for availability.*</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg overflow-hidden shadow-lg transition-transform hover:scale-[1.02] menu-item">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="Images/Kitfo.jpg" alt="Kitfo - Ethiopian Steak Tartare" class="w-full h-full object-cover object-top">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 transition-opacity flex items-center justify-center menu-item-overlay">
+                            <span class="text-white font-medium">View Details</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-3">
+                            <h3 class="text-xl font-display text-accent">Kitfo</h3>
+                            <span class="text-primary font-semibold">Check In-Store</span>
+                        </div>
+                        <p class="text-gray-600 text-sm">Finely chopped lean beef, mixed with mamita, kibe (spiced butter) and korerima, served with ayibe (fresh Ethiopian cottage cheese).</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg overflow-hidden shadow-lg transition-transform hover:scale-[1.02] menu-item">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="Images/Tibs.jpg" alt="Tibs - Ethiopian Sautéed Beef" class="w-full h-full object-cover object-top">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 transition-opacity flex items-center justify-center menu-item-overlay">
+                            <span class="text-white font-medium">View Details</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-3">
+                            <h3 class="text-xl font-display text-accent">Tibs</h3>
+                            <span class="text-primary font-semibold">Check In-Store</span>
+                        </div>
+                        <p class="text-gray-600 text-sm">Pieces of beef, cooked with onions, rosemary, fresh chili, with an optional hint of awaze (chili paste) for flavour.</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg overflow-hidden shadow-lg transition-transform hover:scale-[1.02] menu-item">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="Images/zilzil-tibs.jpg" alt="Zilzil Tibs - Ethiopian Sizzling Beef Strips" class="w-full h-full object-cover object-top">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 transition-opacity flex items-center justify-center menu-item-overlay">
+                            <span class="text-white font-medium">View Details</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-3">
+                            <h3 class="text-xl font-display text-accent">Zilzil Tibs</h3>
+                            <span class="text-primary font-semibold">Check In-Store</span>
+                        </div>
+                        <p class="text-gray-600 text-sm">Strips of lean beef, cooked with onions, rosemary, fresh chili, served in a traditional clay pot with a mild charcoal flame.</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg overflow-hidden shadow-lg transition-transform hover:scale-[1.02] menu-item">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="Images/beyeaynetu-vegetarian.jpg" alt="Beyeaynetu - Ethiopian Vegetarian Combination Platter" class="w-full h-full object-cover object-top">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 transition-opacity flex items-center justify-center menu-item-overlay">
+                            <span class="text-white font-medium">View Details</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-3">
+                            <h3 class="text-xl font-display text-accent">Beyeaynetu (Vegetarian)</h3>
+                            <span class="text-primary font-semibold">Check In-Store</span>
+                        </div>
+                        <p class="text-gray-600 text-sm">A combination of Ethiopian vegetable dishes including alicha, kik alicha, misir wot, gomen and green salad.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="bg-primary hover:bg-primary/90 text-gray-800 px-8 py-3 !rounded-button whitespace-nowrap inline-block transition-colors">View Full Menu PDF (Coming Soon)</a> 
+            </div>
+        </div>
+    </section>
+
+    <section id="reservation" class="reservation-section py-20">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-display text-secondary mb-6">Reserve Your Table</h2>
+                    <div class="w-20 h-1 bg-primary mx-auto mb-6"></div>
+                    <p class="text-gray-700">Experience authentic Ethiopian flavors in a warm and inviting atmosphere. Book your table now or call us at <a href="tel:+27612527267" class="text-primary font-medium hover:underline">+27 61 252 7267</a>.</p>
+                </div>
+                
+                <form class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-6 md:col-span-1">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                            <input type="text" id="name" name="name" class="custom-input w-full" placeholder="Your Name">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                            <input type="email" id="email" name="email" class="custom-input w-full" placeholder="you@example.com">
+                        </div>
+                        <div>
+                            <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" class="custom-input w-full" placeholder="+27 XX XXX XXXX">
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-6 md:col-span-1">
+                        <div>
+                            <label for="date" class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                            <input type="date" id="date" name="date" class="custom-input w-full">
+                        </div>
+                        <div>
+                            <label for="time" class="block text-sm font-medium text-gray-700 mb-1">Time</label>
+                            <select id="time" name="time" class="custom-select w-full">
+                                <option value="">Select a time</option>
+                                <option value="11:00">11:00 AM</option>
+                                <option value="12:00">12:00 PM</option>
+                                <option value="13:00">1:00 PM</option>
+                                <option value="14:00">2:00 PM</option>
+                                <option value="17:00">5:00 PM</option>
+                                <option value="18:00">6:00 PM</option>
+                                <option value="19:00">7:00 PM</option>
+                                <option value="20:00">8:00 PM</option>
+                                <option value="21:00">9:00 PM</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="guests" class="block text-sm font-medium text-gray-700 mb-1">Number of Guests</label>
+                            <select id="guests" name="guests" class="custom-select w-full">
+                                <option value="">Select number of guests</option>
+                                <option value="1">1 Person</option>
+                                <option value="2">2 People</option>
+                                <option value="3">3 People</option>
+                                <option value="4">4 People</option>
+                                <option value="5">5 People</option>
+                                <option value="6">6 People</option>
+                                <option value="7">7 People</option>
+                                <option value="8">8 People</option>
+                                <option value="9+">9+ People (Please specify in notes or call)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="md:col-span-2">
+                        <label for="special-requests" class="block text-sm font-medium text-gray-700 mb-1">Special Requests</label>
+                        <textarea id="special-requests" name="special-requests" rows="4" class="custom-input w-full" placeholder="Please let us know if you have any special requests or dietary requirements..."></textarea>
+                    </div>
+                    
+                    <div class="md:col-span-2 flex items-start">
+                        <input type="checkbox" id="newsletter" name="newsletter" class="custom-checkbox mt-1">
+                        <label for="newsletter" class="ml-2 text-sm text-gray-700">I would like to receive updates about special events and promotions</label>
+                    </div>
+                    
+                    <div class="md:col-span-2 text-center">
+                        <button type="submit" class="bg-primary hover:bg-primary/90 text-gray-800 px-10 py-3 !rounded-button whitespace-nowrap transition-colors">Confirm Reservation</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-display text-secondary mb-6">What Our Guests Say</h2>
+                <div class="w-20 h-1 bg-primary mx-auto mb-6"></div>
+                <p class="text-gray-700 max-w-2xl mx-auto">Praised by Mail & Guardian, TripAdvisor, EatOut, and our wonderful customers! Here's a taste of their experiences.</p>
+            </div>
+            
+            <div class="max-w-4xl mx-auto relative">
+                <div class="testimonial-carousel">
+                    <div class="testimonial-slide active">
+                        <div class="bg-white p-8 rounded-lg shadow-lg">
+                            <div class="flex items-center mb-6">
+                                <div class="text-primary">
+                                    <i class="ri-star-fill ri-lg"></i><i class="ri-star-fill ri-lg"></i><i class="ri-star-fill ri-lg"></i><i class="ri-star-fill ri-lg"></i><i class="ri-star-fill ri-lg"></i>
+                                </div>
+                            </div>
+                            <p class="text-gray-700 italic mb-6">"The Doro Wot at Little Ethiopia is absolutely divine! The injera is perfectly spongy, and the flavors are so authentic. A truly wonderful atmosphere and impeccable service. This is our favorite spot for Ethiopian food in Cape Town!"</p>
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden"><i class="ri-user-fill ri-lg text-gray-600"></i></div>
+                                <div class="ml-4">
+                                    <h4 class="font-medium text-secondary">Aisha B.</h4>
+                                    <p class="text-sm text-gray-600">Visited May 2025</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-slide">
+                        <div class="bg-white p-8 rounded-lg shadow-lg">
+                            <div class="flex items-center mb-6">
+                                <div class="text-primary">
+                                    <i class="ri-star-fill ri-lg"></i><i class="ri-star-fill ri-lg"></i><i class="ri-star-fill ri-lg"></i><i class="ri-star-fill ri-lg"></i><i class="ri-star-fill ri-lg"></i>
+                                </div>
+                            </div>
+                            <p class="text-gray-700 italic mb-6">"Having tried Ethiopian food in many places, Little Ethiopia stands out for its authenticity and fresh ingredients. The Beyeaynetu (vegetarian platter) was incredible, a feast for the eyes and palate. Highly recommended!"</p>
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden"><i class="ri-user-fill ri-lg text-gray-600"></i></div>
+                                <div class="ml-4">
+                                    <h4 class="font-medium text-secondary">David K.</h4>
+                                    <p class="text-sm text-gray-600">Visited April 2025</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-slide">
+                        <div class="bg-white p-8 rounded-lg shadow-lg">
+                            <div class="flex items-center mb-6">
+                                <div class="text-primary">
+                                    <i class="ri-star-fill ri-lg"></i><i class="ri-star-fill ri-lg"></i><i class="ri-star-fill ri-lg"></i><i class="ri-star-fill ri-lg"></i><i class="ri-star-half-fill ri-lg"></i>
+                                </div>
+                            </div>
+                            <p class="text-gray-700 italic mb-6">"We celebrated a birthday at Little Ethiopia and it was perfect. The staff were so welcoming, the food was delicious (especially the Tibs!), and the traditional coffee ceremony was a unique experience. We'll be back soon!"</p>
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden"><i class="ri-user-fill ri-lg text-gray-600"></i></div>
+                                <div class="ml-4">
+                                    <h4 class="font-medium text-secondary">Thandiwe M.</h4>
+                                    <p class="text-sm text-gray-600">Visited March 2025</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex justify-center mt-8 space-x-2">
+                    <button class="w-3 h-3 rounded-full bg-primary testimonial-dot active" data-index="0"></button>
+                    <button class="w-3 h-3 rounded-full bg-gray-300 testimonial-dot" data-index="1"></button>
+                    <button class="w-3 h-3 rounded-full bg-gray-300 testimonial-dot" data-index="2"></button>
+                </div>
+                
+                <button class="absolute top-1/2 -left-4 transform -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-md flex items-center justify-center text-primary focus:outline-none testimonial-prev"><i class="ri-arrow-left-s-line ri-lg"></i></button>
+                <button class="absolute top-1/2 -right-4 transform -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-md flex items-center justify-center text-primary focus:outline-none testimonial-next"><i class="ri-arrow-right-s-line ri-lg"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-display text-secondary mb-6">Contact & Location</h2>
+                <div class="w-20 h-1 bg-primary mx-auto mb-6"></div>
+                <p class="text-gray-700 max-w-2xl mx-auto">Visit us for an unforgettable Ethiopian dining experience. Get in touch for any inquiries or to make a reservation.</p>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row gap-12">
+                <div class="w-full lg:w-1/2">
+                    <form action="#" method="POST" class="bg-white p-8 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-display text-secondary mb-6">Send Us a Message</h3>
+                        <div class="space-y-6">
+                            <div>
+                                <label for="contact-name" class="block text-sm font-medium text-gray-700 mb-1">Your Name</label>
+                                <input type="text" id="contact-name" name="contact-name" class="border-none bg-gray-50 rounded px-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-primary/50" placeholder="Your Name" required>
+                            </div>
+                            <div>
+                                <label for="contact-email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                                <input type="email" id="contact-email" name="contact-email" class="border-none bg-gray-50 rounded px-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-primary/50" placeholder="you@example.com" required>
+                            </div>
+                            <div>
+                                <label for="contact-subject" class="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+                                <input type="text" id="contact-subject" name="contact-subject" class="border-none bg-gray-50 rounded px-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-primary/50" placeholder="Reservation Inquiry">
+                            </div>
+                            <div>
+                                <label for="contact-message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                                <textarea id="contact-message" name="contact-message" rows="4" class="border-none bg-gray-50 rounded px-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-primary/50" placeholder="Your message here..." required></textarea>
+                            </div>
+                            <button type="submit" class="bg-primary hover:bg-primary/90 text-white px-6 py-3 !rounded-button whitespace-nowrap transition-colors">Send Message</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="w-full lg:w-1/2 space-y-8">
+                    <div class="bg-white p-8 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-display text-secondary mb-6">Our Location</h3>
+                        <div class="aspect-video bg-gray-200 rounded-lg overflow-hidden mb-6">
+                             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3310.640009855862!2d18.41980061521009!3d-33.92479908064057!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1dcc676f4fad7557%3A0x5096c96f8f1d3e30!2s76%20Shortmarket%20St%2C%20Cape%20Town%20City%20Centre%2C%20Cape%20Town%2C%208000%2C%20South%20Africa!5e0!3m2!1sen!2szw!4v1622000000000!5m2!1sen!2szw" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 flex items-center justify-center text-primary"><i class="ri-map-pin-line ri-lg"></i></div>
+                                <div class="ml-4">
+                                    <h4 class="font-medium text-secondary">Address</h4>
+                                    <p class="text-gray-700">76 Shortmarket Street, Cape Town<br>South Africa</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 flex items-center justify-center text-primary"><i class="ri-phone-line ri-lg"></i></div>
+                                <div class="ml-4">
+                                    <h4 class="font-medium text-secondary">Phone</h4>
+                                    <p class="text-gray-700"><a href="tel:+27612527267" class="hover:text-primary">+27 61 252 7267</a></p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 flex items-center justify-center text-primary"><i class="ri-mail-line ri-lg"></i></div>
+                                <div class="ml-4">
+                                    <h4 class="font-medium text-secondary">Email</h4>
+                                    <p class="text-gray-700"><a href="mailto:info@littleethiopia.capetown" class="hover:text-primary">info@littleethiopia.capetown</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white p-8 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-display text-secondary mb-6">Opening Hours</h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between">
+                                <span class="text-gray-700">Monday - Sunday</span>
+                                <span class="font-medium text-gray-900">11:00 AM - 10:00 PM</span>
+                            </div>
+                             <div class="pt-3 border-t border-gray-200 mt-3">
+                                <span class="text-primary font-medium">Traditional Ethiopian Coffee Ceremony available!</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="pattern-divider w-full"></div>
+
+    <footer class="bg-gray-900 text-white pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mb-12">
+                <div>
+                    <a href="#home" class="text-3xl font-['Pacifico'] text-white mb-6 inline-block">Little Ethiopia</a>
+                    <p class="text-gray-400 mb-6">Experience the true taste of Ethiopia in the heart of Cape Town. Fresh ingredients, traditional recipes, and a warm welcome await you.</p>
+                    <div class="flex space-x-4">
+                        <a href="YOUR_FACEBOOK_LINK_HERE" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-colors"><i class="ri-facebook-fill"></i></a>
+                        <a href="YOUR_TRIPADVISOR_LINK_HERE" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-colors"><i class="ri-restaurant-fill"></i></a>
+                         <a href="YOUR_INSTAGRAM_LINK_HERE" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-colors"><i class="ri-instagram-fill"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold text-primary mb-6">Quick Links</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#home" class="text-gray-400 hover:text-primary transition-colors">Home</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-primary transition-colors">About Us</a></li>
+                        <li><a href="#menu" class="text-gray-400 hover:text-primary transition-colors">Our Menu</a></li>
+                        <li><a href="#reservation" class="text-gray-400 hover:text-primary transition-colors">Reservations</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-primary transition-colors">Contact</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Full Menu (PDF)</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold text-primary mb-6">Contact Info</h3>
+                    <ul class="space-y-3">
+                        <li class="flex">
+                            <div class="w-6 h-6 flex items-center justify-center text-primary"><i class="ri-map-pin-line"></i></div>
+                            <span class="ml-3 text-gray-400">76 Shortmarket Street, Cape Town<br>South Africa</span>
+                        </li>
+                        <li class="flex">
+                            <div class="w-6 h-6 flex items-center justify-center text-primary"><i class="ri-phone-line"></i></div>
+                            <span class="ml-3 text-gray-400"><a href="tel:+27612527267" class="hover:text-primary">+27 61 252 7267</a></span>
+                        </li>
+                        <li class="flex">
+                            <div class="w-6 h-6 flex items-center justify-center text-primary"><i class="ri-mail-line"></i></div>
+                            <span class="ml-3 text-gray-400"><a href="mailto:info@littleethiopia.capetown" class="hover:text-primary">info@littleethiopia.capetown</a></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 text-center">
+                <p class="text-gray-500 text-sm">© <script>document.write(new Date().getFullYear());</script> Little Ethiopia. All rights reserved. | Designed with <span class="text-primary">♥</span> for authentic Ethiopian cuisine</p>
+            </div>
+        </div>
+    </footer>
+
+    <script id="navigation-script">
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            mobileMenuButton.addEventListener('click', function() { mobileMenu.classList.toggle('hidden'); });
+            
+            const header = document.querySelector('header.sticky-nav');
+            const initialHeaderBg = 'bg-transparent'; 
+            const scrolledHeaderBg = 'bg-gray-900';
+            
+            function updateHeader() {
+                if (window.scrollY > 50) {
+                    header.classList.add(scrolledHeaderBg, 'shadow-md');
+                    if (initialHeaderBg !== scrolledHeaderBg) header.classList.remove(initialHeaderBg);
+                } else {
+                    header.classList.remove(scrolledHeaderBg, 'shadow-md');
+                     if (initialHeaderBg !== scrolledHeaderBg) header.classList.add(initialHeaderBg);
+                }
+            }
+            window.addEventListener('scroll', updateHeader);
+            updateHeader();
+            
+            const navLinks = document.querySelectorAll('nav a[href^="#"]');
+            const mobileNavLinks = document.querySelectorAll('#mobile-menu a[href^="#"]');
+
+            function setActiveLink() {
+                let currentSection = "";
+                const sections = document.querySelectorAll("section[id]");
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - 100) currentSection = section.getAttribute("id");
+                });
+                navLinks.forEach(link => {
+                    link.classList.remove("active");
+                    if (link.getAttribute("href") === `#${currentSection}`) link.classList.add("active");
+                });
+                mobileNavLinks.forEach(link => {
+                    link.classList.remove("text-primary");
+                     if (link.getAttribute("href") === `#${currentSection}`) link.classList.add("text-primary");
+                });
+            }
+            setActiveLink();
+            window.addEventListener("scroll", setActiveLink);
+
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return; 
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({ top: targetElement.offsetTop - 80, behavior: 'smooth' });
+                        if (mobileMenu.contains(this)) mobileMenu.classList.add('hidden');
+                    }
+                });
+            });
+        });
+    </script>
+    <script id="testimonials-script">
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.testimonial-slide');
+            if (slides.length === 0) return;
+            const dots = document.querySelectorAll('.testimonial-dot');
+            const prevButton = document.querySelector('.testimonial-prev');
+            const nextButton = document.querySelector('.testimonial-next');
+            let currentIndex = 0;
+            function showSlide(index) {
+                slides.forEach(slide => slide.classList.remove('active'));
+                dots.forEach(dot => {
+                    dot.classList.remove('bg-primary', 'active');
+                    dot.classList.add('bg-gray-300');
+                });
+                slides[index].classList.add('active');
+                dots[index].classList.remove('bg-gray-300');
+                dots[index].classList.add('bg-primary', 'active');
+                currentIndex = index;
+            }
+            function nextSlide() { showSlide((currentIndex + 1) % slides.length); }
+            function prevSlide() { showSlide((currentIndex - 1 + slides.length) % slides.length); }
+            dots.forEach((dot, index) => dot.addEventListener('click', () => showSlide(index)));
+            if (prevButton) prevButton.addEventListener('click', prevSlide);
+            if (nextButton) nextButton.addEventListener('click', nextSlide);
+            let slideInterval = setInterval(nextSlide, 7000);
+            const carousel = document.querySelector('.testimonial-carousel');
+            if (carousel) {
+                carousel.addEventListener('mouseenter', () => clearInterval(slideInterval));
+                carousel.addEventListener('mouseleave', () => {
+                    clearInterval(slideInterval);
+                    slideInterval = setInterval(nextSlide, 7000);
+                });
+            }
+            if (slides.length > 0) showSlide(0);
+        });
+    </script>
+    <script id="reservation-form-script">
+        document.addEventListener('DOMContentLoaded', function() {
+            const reservationForm = document.querySelector('#reservation form');
+            if (reservationForm) {
+                reservationForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const formData = new FormData(reservationForm);
+                    const formValues = Object.fromEntries(formData.entries());
+                    let isValid = true;
+                    const requiredFields = ['name', 'email', 'phone', 'date', 'time', 'guests'];
+                    requiredFields.forEach(field => {
+                        const input = reservationForm.querySelector(`[name="${field}"]`);
+                        if (input && !formValues[field]) {
+                            isValid = false; input.classList.add('ring-2', 'ring-red-500');
+                        } else if (input) { input.classList.remove('ring-2', 'ring-red-500'); }
+                    });
+                    const errorDivId = 'form-error-message';
+                    let errorDiv = reservationForm.querySelector(`#${errorDivId}`);
+                    if (!isValid) {
+                        if (!errorDiv) {
+                            errorDiv = document.createElement('p');
+                            errorDiv.id = errorDivId;
+                            errorDiv.className = 'text-red-600 text-sm mt-2 text-center md:col-span-2';
+                            reservationForm.insertBefore(errorDiv, reservationForm.querySelector('button[type="submit"]').parentNode);
+                        }
+                        errorDiv.textContent = 'Please fill in all required fields.'; return;
+                    } else if (errorDiv) { errorDiv.remove(); }
+                    const submitButton = reservationForm.querySelector('button[type="submit"]');
+                    const originalText = submitButton.textContent;
+                    submitButton.disabled = true; submitButton.textContent = 'Sending Request...';
+                    setTimeout(() => {
+                        submitButton.textContent = 'Reservation Confirmed!';
+                        submitButton.classList.add('bg-green-600');
+                        submitButton.classList.remove('bg-primary', 'hover:bg-primary/90');
+                        reservationForm.reset();
+                        setTimeout(() => {
+                            submitButton.disabled = false; submitButton.textContent = originalText;
+                            submitButton.classList.remove('bg-green-600');
+                            submitButton.classList.add('bg-primary', 'hover:bg-primary/90');
+                        }, 4000);
+                    }, 1500);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
